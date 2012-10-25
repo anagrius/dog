@@ -6,7 +6,7 @@ TESTS = $(shell find test -name "*.coffee" -type f | sort)
 ROOT = $(shell pwd)
 
 PEGJS = node_modules/.bin/pegjs --track-line-and-column --cache
-MOCHA = node_modules/.bin/mocha --compilers coffee:. -u tdd
+MOCHA = node_modules/.bin/mocha --compilers coffee:coffee-script -u tdd
 MINIFIER = node_modules/.bin/uglifyjs --no-copyright --mangle-toplevel --reserved-names require,module,exports,global,window
 
 all: $(LIB)
