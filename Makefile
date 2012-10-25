@@ -28,7 +28,7 @@ lib/dog/parser.js: src/grammar.pegjs lib/dog
 lib/dog/%.min.js: lib/dog/%.js lib/dog
 	$(MINIFIER) <"$<" >"$@"
 
-lib/dog/%.js: src/%.coffee
+lib/dog/%.js: src/%.coffee lib/dog
 	$(COFFEE) <"$<" >"$(@:%=%.tmp)" && mv "$(@:%=%.tmp)" "$@"
 
 .PHONY: test coverage install loc clean
