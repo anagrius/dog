@@ -1,4 +1,4 @@
-# Dog, a documenter's best friend!
+# Dog [![Build Status](https://travis-ci.org/borlum/dog.png)](https://travis-ci.org/borlum/dog)
 
 ## Work in Progress
 
