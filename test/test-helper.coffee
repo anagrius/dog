@@ -1,4 +1,5 @@
-Parser = require('path').join(__dirname, '..', 'lib', 'dog', 'parser')
+path = require('path')
+Parser = require path.join(__dirname, '..', 'lib', 'dog', 'parser')
 
 module.exports.parse = (markup) ->
-	Parser.compile(markup)
+	Parser.parse(markup)
