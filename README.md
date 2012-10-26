@@ -2,7 +2,7 @@
 
 ## Work in Progress
 
-This project is not jet functional.
+This project is not yet functional.
 
 ## Vision
 
