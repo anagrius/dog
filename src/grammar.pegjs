@@ -5,19 +5,25 @@ document
 	= title:title? section:section* { return title + section.join(""); }
 
 title
-	= "# " text:text "\n"? { return "<h1>" + text + "</h1>\n"; }
+	= "# " text:line { return "<h1>" + text + "</h1>"; }
 
 section
-	= heading (paragraph "\n\n"?)* { return heading + paragraph.join(""); }
+	= heading:heading paragraph:paragraph* { return heading + paragraph; }
 
 heading
-	= "## " text:text { return "<h2>" + text + "</h2>"; }
+	= "## " text:line { return "<h2>" + text + "</h2>"; }
 
 paragraph
-	= text:text { return "<p>" + text + "</p>"; }
+	= text:line { return "<p>" + text + "</p>"; }
 
-text
-	= chars:[a-z \n]i+ { return chars.join(""); }
+line
+	= chars:[a-z ]i+ "\n"? { return chars.join(""); }
+
+_ "whitespace"
+	= whitespace*
+
+whitespace
+	= [ \t\n\r]
 
 EOF
 	= !.
