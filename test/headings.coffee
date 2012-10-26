@@ -9,3 +9,7 @@ module.exports =
 	"## creates a top section heading": ->
 		html = parse "## The Old Man and the Sea"
 		assert.equal html, "<h2>The Old Man and the Sea</h2>"
+
+	"### creates a subsection": ->
+		html = parse "### Do You Really Want To Hurt Me?"
+		assert.equal html, "<h3>Do You Really Want To Hurt Me?</h3>"

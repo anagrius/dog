@@ -1,3 +1,9 @@
+{
+	var tag = function (name, content) {
+		return "<" + name + ">" + content + "</" + name + ">";
+	};
+}
+
 start
 	= document:document EOF { return document; }
 
@@ -5,19 +11,22 @@ document
 	= title:title? section:section* { return title + section.join(""); }
 
 title
-	= "# " text:line { return "<h1>" + text + "</h1>"; }
+	= "# " text:line { return tag("h1", text); }
 
 section
 	= heading:heading paragraph:paragraph* { return heading + paragraph; }
 
 heading
-	= "## " text:line { return "<h2>" + text + "</h2>"; }
+	= level:"#"+ " " text:line {
+		var headerLevel = level.length;
+		return tag("h" + headerLevel, text.trim())
+	}
 
 paragraph
-	= text:line { return "<p>" + text + "</p>"; }
+	= text:line { return tag("p", text); }
 
 line
-	= chars:[a-z ]i+ "\n"? { return chars.join(""); }
+	= chars:[a-z ?]i+ "\n"? { return chars.join(""); }
 
 _ "whitespace"
 	= whitespace*

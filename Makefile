@@ -34,7 +34,7 @@ lib/dog/%.js: src/%.coffee lib/dog
 .PHONY: test coverage install loc clean
 
 test: $(LIB) $(TESTS)
-	$(MOCHA) -R dot
+	$(MOCHA) -R nyan
 
 coverage: $(LIB)
 	@which jscoverage || (echo "install node-jscoverage"; exit 1)
