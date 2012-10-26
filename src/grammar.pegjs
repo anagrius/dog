@@ -1,14 +1,23 @@
 start
-    = title? section*
+	= document:document EOF { return document; }
+
+document
+	= title:title? section:section* { return title + section.join(""); }
 
 title
-    = "# " text:[a-z]i "\n" { return "<h1>" + text + "</h1>"; }
+	= "# " text:text "\n"? { return "<h1>" + text + "</h1>\n"; }
 
 section
-    = heading paragraph* { return heading + paragraph.join(""); }
+	= heading (paragraph "\n\n"?)* { return heading + paragraph.join(""); }
 
 heading
-    = "## " text:[a-z]i "\n" { return "<h2>" + text + "</h2>"; }
+	= "## " text:text { return "<h2>" + text + "</h2>"; }
 
 paragraph
-    = text:[a-z]i "\n" { return "<p>" + text + "</p>"; }
+	= text:text { return "<p>" + text + "</p>"; }
+
+text
+	= chars:[a-z \n]i+ { return chars.join(""); }
+
+EOF
+	= !.

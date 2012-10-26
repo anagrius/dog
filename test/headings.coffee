@@ -1,6 +1,7 @@
-suite 'Titles and Headings', ->
+{ inspect } = require 'util'
 
-	test "# designates a document title", ->
-		{ parse } = require "./test-helper"
+module.exports =
+
+	"# designates a document title": ->
 		html = parse "# Be Awesome Instead"
-		ok html is "<h1>Be Awesome Instead</h1>\n"
+		assert.equal html, "<h1>Be Awesome Instead</h1>\n"
