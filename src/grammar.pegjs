@@ -1,32 +1,45 @@
 {
-	var tag = function (name, content) {
-		return "<" + name + ">" + content + "</" + name + ">";
-	};
+	var ast = require('./ast');
 }
 
 start
 	= document:document EOF { return document; }
 
 document
-	= title:title? section:section* { return title + section.join(""); }
+	= title:title? sections:section* {
+		var document = new ast.Node();
+		document.addChild(title);
+		document.addList(sections);
+		return document;
+	}
 
 title
-	= "# " text:line { return tag("h1", text); }
+	= "# " text:line {
+		return new ast.HeadingNode(1, text);
+	}
 
 section
-	= heading:heading paragraph:paragraph* { return heading + paragraph; }
+	= heading:heading paragraphs:paragraph* {
+		var section = new ast.SectionNode();
+		section.setHeading(heading);
+		section.addList(paragraphs);
+		return section;
+	}
 
 heading
 	= level:"#"+ " " text:line {
-		var headerLevel = level.length;
-		return tag("h" + headerLevel, text.trim())
+		return new ast.HeadingNode(level.length, text);
 	}
 
 paragraph
-	= text:line { return tag("p", text); }
+	= text:line {
+		return ast.ParagraphNode(text);
+	}
 
 line
-	= chars:[a-z ?]i+ "\n"? { return chars.join(""); }
+	= chars:[a-z ?]i+ "\n"? {
+		return chars.join("");
+	}
 
 _ "whitespace"
 	= whitespace*

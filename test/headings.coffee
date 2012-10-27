@@ -1,4 +1,5 @@
 { inspect } = require 'util'
+ast = require './ast'
 
 module.exports =
 
