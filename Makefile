@@ -5,6 +5,7 @@ LIB = $(SRC:src/%.coffee=lib/dog/%.js) lib/dog/parser.js
 TESTS = $(shell find test -name "*.coffee" -type f | sort)
 ROOT = $(shell pwd)
 
+COFFEE = node_modules/.bin/coffee --bare --compile --print
 PEGJS = node_modules/.bin/pegjs --track-line-and-column --cache
 MOCHA = node_modules/.bin/mocha --compilers coffee:coffee-script -u exports --require ./test/test_helper.js
 MINIFIER = node_modules/.bin/uglifyjs --no-copyright --mangle-toplevel --reserved-names require,module,exports,global,window
@@ -29,7 +30,7 @@ lib/dog/%.min.js: lib/dog/%.js lib/dog
 	$(MINIFIER) <"$<" >"$@"
 
 lib/dog/%.js: src/%.coffee lib/dog
-	$(COFFEE) <"$<" >"$(@:%=%.tmp)" && mv "$(@:%=%.tmp)" "$@"
+	$(COFFEE) "$<" > "$(@:%=%.tmp)" && mv "$(@:%=%.tmp)" "$@"
 
 .PHONY: test coverage install loc clean
 
